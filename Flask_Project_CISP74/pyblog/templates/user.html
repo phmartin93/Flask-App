@@ -1,0 +1,101 @@
+<!-- Extends base template -->
+{% extends 'base.html' %}
+
+<!-- Page title -->
+{% block head %}
+    <title>Edit Profile</title>
+{% endblock %}
+
+<!-- HTML for profile editing form -->
+{% block body %}
+<!-- 
+    Display flash messages 
+    Shown when update is successful
+-->
+<div class="custom-center">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class=flashes>
+                {% for message in messages %}
+                    <p class="text-success">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Profile update form -->
+    <form action="", method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom border-dark mb-2">Update Account</legend>
+
+            <!-- Profile Picture -->
+            <img class="rounded-circle post-metadata" src="{{ url_for('static', filename='profile_pictures/' + current_user.username + '.png') }}" height="50" width="50">
+            <!-- Email -->
+            <div class="form-group mb-2">
+                {{ form.email.label(class="form-control-label") }}
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- Password -->
+            <div class="form-group mb-2">
+                {{ form.password.label(class="form-control-label") }}
+                {% if form.password.errors %}
+                    {{ form.password(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.password(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- Confirm password -->
+            <div class="form-group  mb-2">
+                {{ form.confirmPass.label(class="form-control-label") }}
+                {% if form.confirmPass.errors %}
+                    {{ form.confirmPass(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.confirmPass.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.confirmPass(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            
+            <!-- Profile picture -->
+            <div class="form-group  mb-2">
+                {{ form.file.label(class="form-control-label") }}
+                {% if form.file.errors %}
+                    {{ form.file(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.file.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.file(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+        </fieldset>
+
+        <!-- Submit button -->
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

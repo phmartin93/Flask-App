@@ -1,0 +1,81 @@
+<!-- Extends base template -->
+{% extends 'base.html' %}
+
+<!-- Page title -->
+{% block head %}
+    <title>Login</title>
+{% endblock %}
+
+<!-- HTML for login form -->
+{% block body %}
+
+<div class="custom-center">
+    <!-- 
+        Messages to be displayed
+        Successful account creation or error logging in 
+    -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class=flashes>
+                {% for category, message in messages %}
+                    {% if category == 'error' %}
+                        <p class="text-danger">{{ message }}</p>
+                    {% else %}
+                        <p class="text-success">{{ message }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Login Form -->
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom border-dark mb-2">Log In</legend>
+
+            <!-- Finding errors for username and displaying them -->
+            <div class="form-group mb-2">
+                {{ form.username.label(class="form-control-label") }}
+                {% if form.username.errors %}
+                    {{ form.username(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.username(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- Finding errors for password and displaying them -->
+            <div class="form-group mb-2">
+                {{ form.password.label(class="form-control-label") }}
+                {% if form.password.errors %}
+                    {{ form.password(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.password(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            
+            <!-- Remember Me checkbox -->
+            <div class="form-check">
+                {{ form.remember(class="form-check-input") }}
+                {{ form.remember.label(class="form-check-label") }}
+            </div>
+        </fieldset>
+
+        <!-- Submit button -->
+        <div class="form-group mb-2">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+
+{% endblock %}

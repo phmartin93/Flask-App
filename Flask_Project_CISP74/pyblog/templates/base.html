@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- START OF HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Statis css and javascript folders -->
+    <link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='custom-styles.css') }}">
+    <script src="{{ url_for('static', filename='bootstrap.js') }}"></script>
+    <!-- JavaScript and jQuery links for Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    {% block head %}{% endblock %}
+</head>
+<!-- END OF HEAD -->
+
+<!-- START OF BODY -->
+<body  class="bg-info" style="--bs-bg-opacity: .15;">
+
+    <!-- 
+        START OF NAVBAR
+        Navbar will be fixed  
+    -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info navbar-fixed-top">
+        <div class="px-4">
+            <a class="navbar-brand" href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='logo.png') }}" height="30">
+            </a>
+        </div>
+
+        <!-- Collapsable navbar -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" 
+        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+        aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Navbar contents -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 px-4">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="{{ url_for('home') }}">Home</a>
+                </li>
+
+                <!-- Navbar will display different things depending on login -->
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('create_post') }}">New Post</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('user', user_id = current_user.get_id()) }}"><img class="rounded-circle post-metadata" src="{{ url_for('static', filename='profile_pictures/' + current_user.username + '.png') }}" height="30" width="30"></a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('login') }}">Login</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('register') }}">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <!-- END OF NAVBAR -->
+
+    {% block body %}{% endblock %}
+    
+
+</body>
+<!-- END OF BODY -->
+</html>

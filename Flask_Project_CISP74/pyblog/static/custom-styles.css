@@ -1,0 +1,65 @@
+.custom-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+.hori-center {
+    margin: auto;
+    width: 50%;
+    padding: 75px 35px 15px;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.page-title {
+    color: #13B1FF;
+    padding-bottom: 15px;
+}
+
+.post-title {
+    color: #13B1FF;
+    text-decoration: none;
+}
+
+.post-title:hover {
+    color: #0DCAF0;
+}
+
+.comment {
+    text-decoration: underline;
+    color: #13B1FF;
+    font-weight: bold;
+    font-size: small;
+}
+
+.post-metadata {
+    padding-bottom: 1px;
+    margin-bottom: 4px;
+}
+
+.post-metadata a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+.post-content {
+    white-space: pre-line;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.post-svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}
+
+#manage_form {
+    margin-top: -10px;
+}
+
+.edit-btn {
+    margin-top: -15px;
+}

@@ -1,0 +1,41 @@
+<!-- Extends base template -->
+{% extends "base.html" %}
+
+<!-- Page title -->
+{% block head %}
+  <title>Home</title>
+{% endblock %}
+
+{% block body %}  <div class="hori-center">
+      
+      <h1 class="page-title">Posts</h1>
+        <!-- Find any posts in database -->
+        {% if posts != None %}
+            <!-- Iterate through and display all posts -->
+            {% for post in posts %}
+              <article class="media content-section">
+                
+                <div class="media-body">
+                  <!-- Post metadata (username, profile picture, time of post) -->
+                  <div class="post-metadata">
+                    <img class="rounded-circle post-metadata" src="{{ url_for('static', filename='profile_pictures/' + post.user + '.png') }}" height="25" width="25">
+                    <small class="mr-2 fw-bold text-primary">{{ post.user }}</small>
+                    <small class="content-section fst-italic">{{ post.date[:-3] }}</small>
+                  </div>
+    
+                  <!-- Post title and contents -->
+                  {% if posts.title != None %}
+                    <h4><a class="post-title" href="{{ url_for('post', post_id=post.id, post_title=post.title) }}">{{ post.title }}</a></h4>
+                  {% endif %}
+                  <p class="post-content">{{ post.content }}</p>
+
+                </div>
+                
+              </article>
+            {% endfor %}
+        <!-- No posts found -->
+        {% else %}
+          <p class="text-center">No Posts Found</p>
+        {% endif %}
+    
+{% endblock %}

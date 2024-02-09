@@ -1,0 +1,56 @@
+<!-- Extends base template -->
+{% extends 'base.html' %}
+
+<!-- Page title -->
+{% block head %}
+    <title>Create New Post</title>
+{% endblock %}
+
+<!-- HTML for post creation form -->
+{% block body %}
+<div class="custom-center">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom border-dark mb-2">Create Post</legend>
+
+            <!-- Finding errors and displaying them -->
+            <div class="form-group mb-2">
+                {{ form.title.label(class="form-control-label") }}
+                {% if form.title.errors %}
+                    {{ form.title(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.title(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- Form contents -->
+            <div class="form-group mb-2">
+                {{ form.content.label(class="form-control-label") }}
+                <!-- Form validation -->
+                {% if form.content.errors %}
+                    {{ form.content(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.content.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.content(class="form-control", rows='15', cols='100') }}
+                {% endif %}
+            </div>
+        </fieldset>
+
+        <!-- Submit button -->
+        <div class="form-group mb-2">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+
+    </form>
+</div>
+{% endblock %}
